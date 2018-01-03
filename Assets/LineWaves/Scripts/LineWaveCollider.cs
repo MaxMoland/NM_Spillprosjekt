@@ -153,6 +153,8 @@ public class LineWaveCollider : MonoBehaviour {
             colliderGO.AddComponent(colType);
         }
         colliderGO.SetActive(true);
+        colliderGO.tag = gameObject.tag;
+        colliderGO.layer = gameObject.layer;
         colliderGO.transform.localScale = new Vector3(colliderSize, colliderSize, colliderSize);
         collidersGap = Mathf.Clamp(collidersGap, 1, 20);
 
@@ -177,8 +179,8 @@ public class LineWaveCollider : MonoBehaviour {
                 }
                 newCol.transform.rotation = gameObject.transform.rotation;
                 //newCol.transform.Rotate(0, 0, linePositions[j].y, Space.Self); //2do: Align colliders' Zs
-                newCol.tag = gameObject.tag;
-                newCol.layer = gameObject.layer;
+               //newCol.tag = gameObject.tag;
+               //newCol.layer = gameObject.layer;
                 colliders.Add(newCol);
             }
         }

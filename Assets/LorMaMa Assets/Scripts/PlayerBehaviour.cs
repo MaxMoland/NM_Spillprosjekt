@@ -18,6 +18,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     //component refs
     private NavMeshAgent _NMAgent;
+    private AudioSource _Speaker;
 
     //Sounds
     [Header("Sounds")]
@@ -30,6 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Awake()
     {
         _NMAgent = GetComponent<NavMeshAgent>();
+        _Speaker = GetComponent<AudioSource>();
     }
 
     private void Navigate()
@@ -41,7 +43,7 @@ public class PlayerBehaviour : MonoBehaviour
         destination.x += Input.GetAxisRaw("Horizontal"); //Offset from current position based on input
         destination.z += Input.GetAxisRaw("Vertical");
         _NMAgent.destination = destination;
-        Debug.Log("Player tries to navigate");
+        //Debug.Log("Player tries to navigate");
 
     }
 
@@ -59,6 +61,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (_state == State.Idle)
         {
             _NMAgent.enabled = true;
+            _Speaker.clip = null;
 
             Navigate();
             if (Input.GetButton("Jump"))
@@ -69,6 +72,14 @@ public class PlayerBehaviour : MonoBehaviour
         if (_state == State.EnterSymetry)
         {
             _NMAgent.enabled = false;
+            if (_Speaker.clip != _phaseloop)
+            {
+            _Speaker.clip = _phaseloop;
+            _Speaker.Play();
+            _Speaker.loop = true;
+            }
+
+
             
             if (_PhaseLinePoint == Vector3.zero)
             {_PhaseLinePoint = ClosestPhaseLinePoint(); }
@@ -102,13 +113,16 @@ public class PlayerBehaviour : MonoBehaviour
         List<Vector3> PhasePoints = new List<Vector3>();
         foreach (var item in hitColliders)
         {
-            if (item.tag == "PhaseLine") PhasePoints.Add(item.transform.position);
+            if (item.tag == "PhaseLine") {
+                PhasePoints.Add(item.transform.position);
+                Debug.Log("removed "+ item.gameObject.name + " from list ");
+            }
         }
         if (PhasePoints.Any() == false) {
             Debug.Log("No phase point within reach!");
             return Vector3.zero; //No phase point within reach!            
         }
-        closestPhasePoint = hitColliders[0].transform.position;
+        closestPhasePoint = PhasePoints[0];
         foreach (Vector3 point in PhasePoints)
         {
             if (Vector3.Distance(transform.position, point) < Vector3.Distance(transform.position, closestPhasePoint))
