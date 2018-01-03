@@ -178,6 +178,7 @@ public class LineWaveCollider : MonoBehaviour {
                 newCol.transform.rotation = gameObject.transform.rotation;
                 //newCol.transform.Rotate(0, 0, linePositions[j].y, Space.Self); //2do: Align colliders' Zs
                 newCol.tag = gameObject.tag;
+                newCol.layer = gameObject.layer;
                 colliders.Add(newCol);
             }
         }
