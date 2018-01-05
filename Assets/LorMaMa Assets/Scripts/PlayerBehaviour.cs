@@ -30,6 +30,7 @@ public class PlayerBehaviour : MonoBehaviour
     GameObject _PhaseLineObject;    //used by symetryPhasing
     [Tooltip("units per fixedupdate/100")]
     public float symetrySpeed = 1;
+    private bool _IsMovingToB;
 
 
     //Setting up varables, awake is called before Start()
@@ -107,8 +108,11 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (_isEnteringState)
             {
+                Debug.Log("entered SymetryPhasing!");
                 //find the phase line currently attached to
                 _PhaseLineObject = ClosestSymetryLine();
+                _IsMovingToB = PhasingInterpolationPos(_PhaseLineObject) < 0.5;
+
             }
             SymetryNavigate(_PhaseLineObject);
             //Exit state -> Idle
@@ -208,29 +212,22 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Vector3 A = SymetryLine.transform.Find("A").transform.position;
         Vector3 B = SymetryLine.transform.Find("B").transform.position;
-        if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Vertical") == 1)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, B, symetrySpeed/100);
-        }
-        else if (Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == -1)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, A, symetrySpeed/100);
-        }
-        // transform.position = Vector3.Lerp(A, B, _phasingInterpolationPos);
-        // _phasingInterpolationPos += Input.GetAxisRaw("Horizontal") / 100;   
-
+        Debug.Log("IsmovingtoB = " + _IsMovingToB);
+        if (_IsMovingToB) { transform.position = Vector3.MoveTowards(transform.position, B, symetrySpeed / 100); }
+        else { transform.position = Vector3.MoveTowards(transform.position, A, symetrySpeed / 100); } 
     }
-}
   // /// <summary>
     /// Where on an a phasing line is the player?
     /// </summary>
     /// <param name="phaseLineObject"></param>
     /// <returns></returns>
-  // private float PhasingInterpolationPos(GameObject phaseLineObject)
-  // {
-  //     Vector3 A = phaseLineObject.transform.Find("A").transform.position;
-  //     Vector3 B = phaseLineObject.transform.Find("B").transform.position;
-  //     float distToA = Vector3.Distance(transform.position, A);
-  //     float distAtoB = Vector3.Distance(A, B);
-  //     return distToA/distAtoB;
-  // }
+   private float PhasingInterpolationPos(GameObject phaseLineObject)
+   {
+        Vector3 A = phaseLineObject.transform.Find("A").transform.position;
+        Vector3 B = phaseLineObject.transform.Find("B").transform.position;
+        float distToA = Vector3.Distance(transform.position, A);
+        float distAtoB = Vector3.Distance(A, B);
+        Debug.Log(distToA / distAtoB);
+        return distToA/distAtoB;
+   }
+}
