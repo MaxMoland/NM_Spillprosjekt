@@ -1207,11 +1207,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114432564735194760, guid: d7faa12e91a716d4f88986944303411e,
+    - target: {fileID: 195566747482610262, guid: d7faa12e91a716d4f88986944303411e,
         type: 2}
-      propertyPath: _phaseloop
-      value: 
-      objectReference: {fileID: 8300000, guid: dc4d8126919b8144c8fb2976f2a10301, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7faa12e91a716d4f88986944303411e, type: 2}
   m_IsPrefabParent: 0

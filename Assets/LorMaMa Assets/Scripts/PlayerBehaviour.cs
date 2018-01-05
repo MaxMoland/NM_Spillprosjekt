@@ -28,7 +28,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     Vector3 _PhaseLinePoint = Vector3.zero; //used by entersymetry state
     GameObject _PhaseLineObject;    //used by symetryPhasing
-    float _phasingInterpolationPos;  //used by symetryPhasing
+    [Tooltip("units per fixedupdate/100")]
+    public float symetrySpeed = 1;
 
 
     //Setting up varables, awake is called before Start()
@@ -104,19 +105,15 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (_state == State.SymetryPhasing)
         {
-            //find current phase line
             if (_isEnteringState)
             {
                 //find the phase line currently attached to
                 _PhaseLineObject = ClosestSymetryLine();
-                _phasingInterpolationPos = PhasingInterpolationPos(_PhaseLineObject);
-                Debug.Log("Players interpolation value is: " + _phasingInterpolationPos);
             }
             SymetryNavigate(_PhaseLineObject);
             //Exit state -> Idle
-            if (Input.GetButtonUp("Jump"))
+            if (Input.GetButtonUp("Jump")) //todo: exit logic death or not allowed?           
             {
-            //todo: exit logic death or not allowed?
                 _state = State.Idle;
                 //cleans up on exit
                 _Speaker.clip = null;
@@ -143,13 +140,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// The player is allowed to move along phase line
-    /// </summary>
-    private void SymetryNavigate(GameObject SymetryLine)
-    {
-        
-    }
 
     /// <summary>
     /// Searches nearby for phase line points, if none is found, returns Vector3.zero.
@@ -209,17 +199,38 @@ public class PlayerBehaviour : MonoBehaviour
         }
         return closestPhasePoint.transform.parent.parent.parent.gameObject; //return great-grandparent of line point.
     }
+
+
     /// <summary>
+    /// The player is allowed to move along phase line
+    /// </summary>
+    private void SymetryNavigate(GameObject SymetryLine)
+    {
+        Vector3 A = SymetryLine.transform.Find("A").transform.position;
+        Vector3 B = SymetryLine.transform.Find("B").transform.position;
+        if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Vertical") == 1)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, B, symetrySpeed/100);
+        }
+        else if (Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == -1)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, A, symetrySpeed/100);
+        }
+        // transform.position = Vector3.Lerp(A, B, _phasingInterpolationPos);
+        // _phasingInterpolationPos += Input.GetAxisRaw("Horizontal") / 100;   
+
+    }
+}
+  // /// <summary>
     /// Where on an a phasing line is the player?
     /// </summary>
     /// <param name="phaseLineObject"></param>
     /// <returns></returns>
-    private float PhasingInterpolationPos(GameObject phaseLineObject)
-    {
-        Vector3 A = phaseLineObject.transform.Find("A").transform.position;
-        Vector3 B = phaseLineObject.transform.Find("B").transform.position;
-        float distToA = Vector3.Distance(transform.position, A);
-        float distAtoB = Vector3.Distance(A, B);
-        return distToA/distAtoB;
-    }
-}
+  // private float PhasingInterpolationPos(GameObject phaseLineObject)
+  // {
+  //     Vector3 A = phaseLineObject.transform.Find("A").transform.position;
+  //     Vector3 B = phaseLineObject.transform.Find("B").transform.position;
+  //     float distToA = Vector3.Distance(transform.position, A);
+  //     float distAtoB = Vector3.Distance(A, B);
+  //     return distToA/distAtoB;
+  // }
