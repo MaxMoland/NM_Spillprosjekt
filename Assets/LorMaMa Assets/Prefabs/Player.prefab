@@ -19,11 +19,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4900797777624238}
+  - component: {fileID: 114432564735194760}
   - component: {fileID: 33682222504845428}
   - component: {fileID: 65905377386437144}
   - component: {fileID: 23077926211035818}
   - component: {fileID: 195566747482610262}
-  - component: {fileID: 114432564735194760}
   - component: {fileID: 82886297469002468}
   - component: {fileID: 81958131703922548}
   m_Layer: 0
@@ -197,6 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874470f18d39c5443872e330d49279f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _phaseloop: {fileID: 8300000, guid: dc4d8126919b8144c8fb2976f2a10301, type: 3}
 --- !u!195 &195566747482610262
 NavMeshAgent:
   m_ObjectHideFlags: 1
