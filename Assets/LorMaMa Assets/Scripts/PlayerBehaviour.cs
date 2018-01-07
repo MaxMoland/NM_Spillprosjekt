@@ -32,9 +32,12 @@ public class PlayerBehaviour : MonoBehaviour
     public float symetrySpeed = 1;
     private bool _IsMovingToB;
     private float _Pushcount = 0;
+    [NonSerialized]
     public Vector3 _heading;
+    [NonSerialized]
     public Vector3 _lastHeading;
     private GameObject _pushableObject;
+    public float _Strenght = 0;
 
 
     //Setting up varables, awake is called before Start()
@@ -92,7 +95,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
             else _Pushcount = 0;
-            if (_Pushcount > 0.5) //how long should play strain before starting to push?
+            if (_Pushcount > 1/_Strenght) //how long should play strain before starting to push?
             {
                 _state = State.Pushing;
                 _Pushcount = 0;
@@ -164,9 +167,9 @@ public class PlayerBehaviour : MonoBehaviour
             if (_pushableObject.GetComponent<Pushable >().IsPushable(gameObject))
             {
                 Vector3 objectOffset = transform.position - _pushableObject.transform.position;
-                float speed = _NMAgent.speed * _pushableObject.GetComponent<Pushable>()._mass;
+                float speed = _NMAgent.speed / _pushableObject.GetComponent<Pushable>()._mass;
                 transform.position = Vector3.MoveTowards(transform.position, transform.position + _heading, speed * Time.deltaTime);
-                _pushableObject.transform.position -= objectOffset;
+                _pushableObject.transform.position = transform.position - objectOffset;
             }
             if (_heading != _lastHeading)
             {
