@@ -170,7 +170,7 @@ public class PlayerBehaviour : MonoBehaviour
                 float speed = _NMAgent.speed / _pushableObject.GetComponent<Pushable>()._mass;
                 transform.position = Vector3.MoveTowards(transform.position, transform.position + _heading, speed * Time.deltaTime);
                 _pushableObject.transform.position = transform.position - objectOffset;
-            }
+            } else _state = State.Idle;
             if (_heading != _lastHeading)
             {
 

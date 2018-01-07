@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PhaseLine
   - PushableAreaLimiter
+  - Trigger
   layers:
   - Default
   - TransparentFX
