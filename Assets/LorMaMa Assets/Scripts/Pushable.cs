@@ -10,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class Pushable : MonoBehaviour {
 
+    public float _mass = 1;
+
 	// Use this for initialization
 	void Start () {
 		

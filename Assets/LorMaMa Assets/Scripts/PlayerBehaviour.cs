@@ -32,6 +32,9 @@ public class PlayerBehaviour : MonoBehaviour
     public float symetrySpeed = 1;
     private bool _IsMovingToB;
     private float _Pushcount = 0;
+    public Vector3 _heading;
+    public Vector3 _lastHeading;
+    private GameObject _pushableObject;
 
 
     //Setting up varables, awake is called before Start()
@@ -50,6 +53,10 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+            _lastHeading = _heading;
+            _heading = Vector3.zero;
+            _heading.x += Mathf.Round(Input.GetAxisRaw("Horizontal")); //Offset from current position based on input to get heading
+            _heading.z += Mathf.Round(Input.GetAxisRaw("Vertical"));
 
         //State Machine -------------------------------------------------------------------------------------------
         Debug.Log("Player State is: " + _state);
@@ -70,11 +77,8 @@ public class PlayerBehaviour : MonoBehaviour
 
             //pushing is the player pushing agains a pushable object? 
             //TODO: Add "rake-cast" for better accuracy
-            Vector3 heading = Vector3.zero;
-            heading.x += Mathf.Round(Input.GetAxisRaw("Horizontal")); //Offset from current position based on input to get heading
-            heading.z += Mathf.Round(Input.GetAxisRaw("Vertical"));
-            Debug.DrawRay(transform.position, heading * 0.5f, Color.green, 0.2f);
-            Ray ray = new Ray(transform.position, heading);
+            Debug.DrawRay(transform.position, _heading * 0.5f, Color.green, 0.2f);
+            Ray ray = new Ray(transform.position, _heading);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 0.5f))
             {
@@ -82,15 +86,17 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     print("There is something pushablle in front of the object!");
                     _Pushcount = _Pushcount + 1 * Time.deltaTime;
-                    Debug.Log(_Pushcount);
-                    transform.position = hit.collider.transform.position - heading;
+                    //Debug.Log(_Pushcount);
+                    transform.position = hit.collider.transform.position - _heading;
                     _NMAgent.destination = transform.position; //don't move closer to object
                 }
             }
             else _Pushcount = 0;
-            if (_Pushcount > 20) //how long shoul
+            if (_Pushcount > 0.5) //how long should play strain before starting to push?
             {
-
+                _state = State.Pushing;
+                _Pushcount = 0;
+                _pushableObject = hit.collider.gameObject;
             }
             
 
@@ -153,9 +159,22 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (_state == State.Pushing)
         {
+            _NMAgent.enabled = false;
 
+            if (_pushableObject.GetComponent<Pushable >().IsPushable(gameObject))
+            {
+                Vector3 objectOffset = transform.position - _pushableObject.transform.position;
+                float speed = _NMAgent.speed * _pushableObject.GetComponent<Pushable>()._mass;
+                transform.position = Vector3.MoveTowards(transform.position, transform.position + _heading, speed * Time.deltaTime);
+                _pushableObject.transform.position -= objectOffset;
+            }
+            if (_heading != _lastHeading)
+            {
+
+                _state = State.Idle;
+            }
+            
         }
-
             _isEnteringState = false; //reset entering state to false
         
     }
