@@ -31,6 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
     [Tooltip("units per fixedupdate/100")]
     public float symetrySpeed = 1;
     private bool _IsMovingToB;
+    private int pushcount = 0;
 
 
     //Setting up varables, awake is called before Start()
@@ -50,7 +51,7 @@ public class PlayerBehaviour : MonoBehaviour
     void FixedUpdate()
     {
 
-        //State Machine
+        //State Machine -------------------------------------------------------------------------------------------
         Debug.Log("Player State is: " + _state);
         if (_state != _lastState) //detect state transition
         {
@@ -66,6 +67,28 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 _state = State.EnterSymetry;
             }
+
+            //pushing is the player pushing agains a pushable object? 
+            //TODO: Add "rake-cast" for better accuracy
+            Vector3 heading = Vector3.zero;
+            heading.x += Mathf.Round(Input.GetAxisRaw("Horizontal")); //Offset from current position based on input to get heading
+            heading.z += Mathf.Round(Input.GetAxisRaw("Vertical"));
+            Debug.DrawRay(transform.position, heading * 0.5f, Color.green, 0.2f);
+            Ray ray = new Ray(transform.position, heading);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 0.5f))
+            {
+                if (hit.collider.GetComponent<Pushable>() != null)
+                {
+                    print("There is something pushablle in front of the object!");
+                    pushcount++;
+                    transform.position = hit.collider.transform.position - heading;
+                    _NMAgent.destination = transform.position; //don't move closer to object
+                }
+            }
+            else pushcount = 0;
+            
+
         }
         if (_state == State.EnterSymetry)
         {
@@ -123,7 +146,12 @@ public class PlayerBehaviour : MonoBehaviour
                 _Speaker.clip = null;
             }
         }
-        _isEnteringState = false; //reset entering state to false
+        if (_state == State.Pushing)
+        {
+
+        }
+
+            _isEnteringState = false; //reset entering state to false
         
     }
 
