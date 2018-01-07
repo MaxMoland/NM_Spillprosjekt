@@ -26,9 +26,19 @@ public class Pushable : MonoBehaviour {
     /// </summary>
     /// <param name="pushingEntity"> The entity who does the pushing</param>
     /// <returns></returns>
-    public bool IsPushable(GameObject pushingEntity)
+    public bool IsPushable(PlayerBehaviour pushingEntity)
     {
-        return true;
+        Debug.DrawRay(transform.position, pushingEntity._heading * 0.5f, Color.red, 0.2f);
+        Ray ray = new Ray(transform.position, pushingEntity._heading);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 0.5f))
+        {
+            if (hit.collider.tag == "PushableAreaLimiter" || hit.collider.tag == "Untagged")
+            {
+                return false;
+            }
+        }
+            return true;
     }
 }
 

@@ -164,7 +164,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             _NMAgent.enabled = false;
 
-            if (_pushableObject.GetComponent<Pushable >().IsPushable(gameObject))
+            if (_pushableObject.GetComponent<Pushable >().IsPushable(this))
             {
                 Vector3 objectOffset = transform.position - _pushableObject.transform.position;
                 float speed = _NMAgent.speed / _pushableObject.GetComponent<Pushable>()._mass;
