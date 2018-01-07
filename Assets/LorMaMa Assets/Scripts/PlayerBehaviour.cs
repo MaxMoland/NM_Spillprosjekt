@@ -28,10 +28,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     Vector3 _PhaseLinePoint = Vector3.zero; //used by entersymetry state
     GameObject _PhaseLineObject;    //used by symetryPhasing
-    [Tooltip("units per fixedupdate/100")]
+    [Tooltip("units per second")]
     public float symetrySpeed = 1;
     private bool _IsMovingToB;
-    private int pushcount = 0;
+    private float _Pushcount = 0;
 
 
     //Setting up varables, awake is called before Start()
@@ -48,7 +48,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
 
         //State Machine -------------------------------------------------------------------------------------------
@@ -81,12 +81,17 @@ public class PlayerBehaviour : MonoBehaviour
                 if (hit.collider.GetComponent<Pushable>() != null)
                 {
                     print("There is something pushablle in front of the object!");
-                    pushcount++;
+                    _Pushcount = _Pushcount + 1 * Time.deltaTime;
+                    Debug.Log(_Pushcount);
                     transform.position = hit.collider.transform.position - heading;
                     _NMAgent.destination = transform.position; //don't move closer to object
                 }
             }
-            else pushcount = 0;
+            else _Pushcount = 0;
+            if (_Pushcount > 20) //how long shoul
+            {
+
+            }
             
 
         }
@@ -105,7 +110,7 @@ public class PlayerBehaviour : MonoBehaviour
             {_PhaseLinePoint = ClosestPhaseLinePoint(); }
             if (_PhaseLinePoint != Vector3.zero)
             {
-                transform.position = Vector3.MoveTowards(transform.position, _PhaseLinePoint, 0.1f);
+                transform.position = Vector3.MoveTowards(transform.position, _PhaseLinePoint, 1f * Time.deltaTime);
                 //Debug.Log("Moves toward a point!:");
                 Debug.DrawLine(transform.position, _PhaseLinePoint, Color.red);
             }
@@ -241,8 +246,8 @@ public class PlayerBehaviour : MonoBehaviour
         Vector3 A = SymetryLine.transform.Find("A").transform.position;
         Vector3 B = SymetryLine.transform.Find("B").transform.position;
         Debug.Log("IsmovingtoB = " + _IsMovingToB);
-        if (_IsMovingToB) { transform.position = Vector3.MoveTowards(transform.position, B, symetrySpeed / 100); }
-        else { transform.position = Vector3.MoveTowards(transform.position, A, symetrySpeed / 100); } 
+        if (_IsMovingToB) { transform.position = Vector3.MoveTowards(transform.position, B, symetrySpeed * Time.deltaTime); }
+        else { transform.position = Vector3.MoveTowards(transform.position, A, symetrySpeed * Time.deltaTime); } 
     }
   // /// <summary>
     /// Where on an a phasing line is the player?
