@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b7f1a740a80d23341989e97c336f33eb
-timeCreated: 1515498145
+timeCreated: 1515501972
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -15,6 +15,18 @@ TextureImporter:
     21300016: SHEET_TILE 1_8
     21300018: SHEET_TILE 1_9
     21300020: SHEET_TILE 1_10
+    21300022: SPRITE_TILE_0
+    21300024: SPRITE_TILE_1
+    21300026: SPRITE_TILE_2
+    21300028: SPRITE_TILE_3
+    21300030: SPRITE_TILE_4
+    21300032: SPRITE_TILE_6
+    21300034: SPRITE_TILE_7
+    21300036: SPRITE_TILE_8
+    21300038: SPRITE_TILE_9
+    21300040: SPRITE_TILE_5
+    21300042: SPRITE_TILE_10
+    21300044: SPRITE_TILE_11
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -91,81 +103,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SHEET_TILE 1_0
+      name: SPRITE_TILE_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 770
-        width: 256
-        height: 254
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: SHEET_TILE 1_1
-      rect:
-        serializedVersion: 2
-        x: 257
-        y: 770
-        width: 254
-        height: 254
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: SHEET_TILE 1_2
-      rect:
-        serializedVersion: 2
-        x: 514
-        y: 770
-        width: 255
-        height: 254
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: SHEET_TILE 1_3
-      rect:
-        serializedVersion: 2
-        x: 771
-        y: 771
-        width: 253
-        height: 253
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: SHEET_TILE 1_4
-      rect:
-        serializedVersion: 2
-        x: 800
-        y: 519
-        width: 196
-        height: 246
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: SHEET_TILE 1_5
-      rect:
-        serializedVersion: 2
-        x: 514
-        y: 511
+        y: 768
         width: 256
         height: 256
       alignment: 0
@@ -175,13 +117,55 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: SHEET_TILE 1_6
+      name: SPRITE_TILE_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SPRITE_TILE_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SPRITE_TILE_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SPRITE_TILE_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 513
-        width: 254
-        height: 254
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,13 +173,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: SHEET_TILE 1_7
+      name: SPRITE_TILE_6
       rect:
         serializedVersion: 2
-        x: 258
-        y: 699
-        width: 250
-        height: 63
+        x: 512
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,13 +187,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: SHEET_TILE 1_8
+      name: SPRITE_TILE_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SPRITE_TILE_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SPRITE_TILE_9
       rect:
         serializedVersion: 2
         x: 256
-        y: 633
+        y: 256
         width: 256
-        height: 55
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,13 +229,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: SHEET_TILE 1_9
+      name: SPRITE_TILE_5
       rect:
         serializedVersion: 2
         x: 256
-        y: 571
+        y: 575
         width: 256
-        height: 58
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,13 +243,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: SHEET_TILE 1_10
+      name: SPRITE_TILE_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 637
+        width: 256
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SPRITE_TILE_11
       rect:
         serializedVersion: 2
         x: 257
-        y: 260
-        width: 252
-        height: 253
+        y: 699
+        width: 253
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
