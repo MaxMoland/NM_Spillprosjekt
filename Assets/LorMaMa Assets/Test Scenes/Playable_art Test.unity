@@ -22776,7 +22776,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1710511694}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dffc049232b6dfb479c59ae880dccac8, type: 3}
   m_Name: 
@@ -28774,6 +28774,8 @@ GameObject:
   - component: {fileID: 2122886684}
   - component: {fileID: 2122886683}
   - component: {fileID: 2122886687}
+  - component: {fileID: 2122886689}
+  - component: {fileID: 2122886688}
   m_Layer: 0
   m_Name: PushableObject
   m_TagString: Untagged
@@ -28859,6 +28861,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mass: 1
+--- !u!114 &2122886688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2122886682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffc049232b6dfb479c59ae880dccac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ObjectsToActivate:
+  - {fileID: 1485900612}
+  _ObjectsToDisable: []
+  _DesiredObject: {fileID: 1710511694}
+--- !u!114 &2122886689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2122886682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1a1b7d031bab34b8876e071bcfc245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ObjectsToActivate:
+  - {fileID: 1485900612}
+  _ObjectsToDisable: []
+  _DesiredObject: {fileID: 1710511694}
 --- !u!1 &2125942173
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleTrigger : MonoBehaviour {
+public class SimpleDeTrigger : MonoBehaviour {
 
     public GameObject[] _ObjectsToActivate;
     public GameObject[] _ObjectsToDisable;
@@ -12,9 +12,10 @@ public class SimpleTrigger : MonoBehaviour {
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) < 0.8f)
+        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) > 1.2f)
         {
         Debug.Log("Trigger entered!");
+        Debug.Log(Vector3.Distance(transform.position, _DesiredObject.transform.position));
         //_DesiredObject.transform.position = transform.position;
         //_DesiredObject.GetComponent<Pushable>().enabled = true;
         Triggered();
@@ -26,12 +27,13 @@ public class SimpleTrigger : MonoBehaviour {
     {
         foreach (var item in _ObjectsToActivate)
         {
-            item.SetActive(true);         
+            item.SetActive(false);
+            //_DesiredObject.GetComponent<Pushable>()._mass = 1;
         }
         foreach (var item in _ObjectsToDisable)
         {
-            item.SetActive(false);
-        }
+            item.SetActive(true);
+        }      
 
     }
 }
