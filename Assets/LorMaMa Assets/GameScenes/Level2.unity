@@ -26897,6 +26897,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114869649026207930, guid: bd1099fdceeac604289d3244dc95ba90,
+        type: 2}
+      propertyPath: _ObjectsToActivate.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4936269702966366, guid: bd1099fdceeac604289d3244dc95ba90, type: 2}
       propertyPath: m_LocalPosition.x
       value: 9.5
