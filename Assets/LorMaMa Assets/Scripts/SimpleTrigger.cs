@@ -15,8 +15,8 @@ public class SimpleTrigger : MonoBehaviour {
         if (Vector3.Distance(transform.position, _DesiredObject.transform.position) < 0.8f)
         {
         Debug.Log("Trigger entered!");
-        //_DesiredObject.transform.position = transform.position;
-        //_DesiredObject.GetComponent<Pushable>().enabled = true;
+        _DesiredObject.transform.position = transform.position;
+        _DesiredObject.GetComponent<Pushable>().enabled = true;
         Triggered();
         }
     }

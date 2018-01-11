@@ -14,8 +14,6 @@ public class Scenetransfer : MonoBehaviour {
         if (Vector3.Distance(transform.position, _TriggerObj.transform.position) < 0.8f)
         {
         Debug.Log("Trigger entered!");
-        //_DesiredObject.transform.position = transform.position;
-        //_DesiredObject.GetComponent<Pushable>().enabled = true;
         Triggered();
         }
     }
