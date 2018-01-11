@@ -7,14 +7,21 @@ public class PresurePlate : MonoBehaviour {
     public GameObject[] _ObjectsToActivate;
 
     public GameObject _DesiredObject;
+    private bool active = false;
+    public Color colorActive;
+    public Color colorDeActive;
+    private Material[] mat; 
 
+    private void Start()
+    {
+        mat = GetComponent<Renderer>().materials;
+    }
 
     private void Update()
     {
         if (Vector3.Distance(transform.position, _DesiredObject.transform.position) < 0.8f)
         {
-        Debug.Log("Trigger entered!");
-        Triggered();
+            Triggered();
         }
         if (Vector3.Distance(transform.position, _DesiredObject.transform.position) > 1.2f)
         {
@@ -27,18 +34,19 @@ public class PresurePlate : MonoBehaviour {
 
     public void Triggered()
     {
-        foreach (var item in _ObjectsToActivate)
-        {
-            item.SetActive(true);
+        if (!active){
             GetComponent<AudioSource>().Play();
+            active = true;
+            GetComponent<Renderer>().material.color = colorActive;
         }
     }
     public void DeTriggered()
     {
-        foreach (var item in _ObjectsToActivate)
+        if (active)
         {
-            item.SetActive(false);
             GetComponent<AudioSource>().Stop();
+            active = false;
+            GetComponent<Renderer>().material.color = colorDeActive;
         }
     }
 }
