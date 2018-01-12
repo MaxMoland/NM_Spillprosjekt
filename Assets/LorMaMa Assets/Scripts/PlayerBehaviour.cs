@@ -39,7 +39,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Vector3 _lastHeading;
     private GameObject _pushableObject;
     public float _Strenght = 0;
-
+    private int count = 0;
 
     //Setting up varables, awake is called before Start()
     private void Awake()
@@ -61,6 +61,9 @@ public class PlayerBehaviour : MonoBehaviour
             _heading = Vector3.zero;
             _heading.x += Mathf.Round(Input.GetAxisRaw("Horizontal")); //Offset from current position based on input to get heading
             _heading.z += Mathf.Round(Input.GetAxisRaw("Vertical"));
+        if (count == 20)
+            count = 0;
+        count++;
 
         //State Machine -------------------------------------------------------------------------------------------
         Debug.Log("Player State is: " + _state);
@@ -71,25 +74,37 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (_state == State.Idle)
         {
-            Debug.Log("x :" + _heading.x);
-            Debug.Log("z :" + _heading.z);
-            Debug.Log("last :" + _lastHeading);           
+
             if (_heading.z < 0)//down
-            { 
-                _Sprite.sprite = _Sprites[7];//8
+            {
+                if (count <= 10)
+                    _Sprite.sprite = _Sprites[8];
+                else
+                    _Sprite.sprite = _Sprites[7];//8
             }
             else if (_heading.z > 0) //up
             {
-                _Sprite.sprite = _Sprites[1]; //2
+                if (count <= 10)
+                    _Sprite.sprite = _Sprites[2];
+                else
+                    _Sprite.sprite = _Sprites[1]; //2
             }
             else if (_heading.x < 0) //left
             {
-                _Sprite.sprite = _Sprites[4]; //5
+                if (count <= 10)
+                    _Sprite.sprite = _Sprites[5];
+                else
+                    _Sprite.sprite = _Sprites[4]; //5
                 _Sprite.flipX = true;
             }
             else if (_heading.x > 0) //right
-            {             
+            {
+                if (count <= 10)
+                    _Sprite.sprite = _Sprites[5];
+                else
                 _Sprite.sprite = _Sprites[4]; //5  
+
+
                 _Sprite.flipX = false;
             }
             else
@@ -213,6 +228,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (_state == State.Pushing)
         {
+ 
             _NMAgent.enabled = false;
 
             if (_pushableObject.GetComponent<Pushable >().IsPushable(this))
@@ -226,16 +242,25 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else if(_heading.z > 0) //up
                 {
-                    _Sprite.sprite = _Sprites[9]; //10
+                    if (count <= 10)
+                        _Sprite.sprite = _Sprites[10];
+                    else
+                        _Sprite.sprite = _Sprites[9]; //10
                 }
                 else if (_heading.x < 0) //left
                 {
-                    _Sprite.sprite = _Sprites[11]; //12
+                    if (count <= 10)
+                        _Sprite.sprite = _Sprites[12];
+                    else
+                        _Sprite.sprite = _Sprites[11]; //12
                     _Sprite.flipX = true;
                 }
                 else if (_heading.x > 0) //right
                 {
-                    _Sprite.sprite = _Sprites[12]; //11   
+                    if (count <= 10)
+                        _Sprite.sprite = _Sprites[11];
+                    else
+                        _Sprite.sprite = _Sprites[12]; //11   
                     _Sprite.flipX = false;
                 }
 
