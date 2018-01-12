@@ -8,6 +8,8 @@ public class SimpleTrigger : MonoBehaviour {
     public GameObject[] _ObjectsToActivate;
     public GameObject[] _ObjectsToDisable;
 
+    private PlayerBehaviour _playerBehaviour;
+
     //public GameObject[] _AnimationsToTurnOn;
     //public GameObject[] _AnimationsToTurnOff;
 
@@ -15,15 +17,18 @@ public class SimpleTrigger : MonoBehaviour {
 
     public bool _triggered = false;
 
-
+    private void Start()
+    {
+        _playerBehaviour = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehaviour>();
+    }
 
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) < 0.2f)
+        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) < 0.8f && _playerBehaviour.GetState() != PlayerBehaviour.State.Pushing)
         {
             Debug.Log("Trigger entered!");
-            //_DesiredObject.transform.position = transform.position;
+            _DesiredObject.transform.position = transform.position;
             //_DesiredObject.GetComponent<Pushable>().enabled = true;
             SwitchOn(true);
             //DoAnimateOn();

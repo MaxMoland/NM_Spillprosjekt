@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PresurePlate : SimpleTrigger {
 
-    public GameObject[] _ObjectsToActivate;
-    public GameObject[] _ObjectsToDisable;
+   // public GameObject[] _ObjectsToActivate;
+   // public GameObject[] _ObjectsToDisable;
 
     public GameObject[] _AnimationsToTurnOn;
     public GameObject[] _AnimationsToTurnOff;

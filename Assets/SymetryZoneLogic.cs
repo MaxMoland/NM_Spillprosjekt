@@ -18,29 +18,34 @@ public class SymetryZoneLogic : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         _tempcheck = 0;
+        bool allTrue = true;
         foreach (var item in _requiredActiveTriggers)
         {
-            if (item._triggered)
+            if (!item._triggered)
             {
-                _tempcheck++;
+                allTrue = false;
             }
         }
-        if (_tempcheck == _requiredActiveTriggers.Length)
+        if (allTrue)
         {
-            SwitchOn(true);
+            SwitchOn();
         }
-        else SwitchOn(false);
-	}
-    public void SwitchOn(bool isTurnedOn)
+        else SwitchOff();
+        Debug.Log("_tempcheck = " + _tempcheck);
+        Debug.Log("_requiredActiveTriggers.Length = " + _requiredActiveTriggers.Length);
+    }
+
+    public void SwitchOn()
     {
         foreach (var item in _ObjectsToActivate)
         {
-            item.SetActive(isTurnedOn);
+            item.SetActive(true);
         }
+    }
+    public void SwitchOff() {
         foreach (var item in _ObjectsToDisable)
         {
-            item.SetActive(!isTurnedOn);
+            item.SetActive(false);
         }
-
     }
 }

@@ -354,4 +354,7 @@ public class PlayerBehaviour : MonoBehaviour
         Debug.Log(distToA / distAtoB);
         return distToA/distAtoB;
    }
+
+    public State GetState() { return _state; }
+
 }
