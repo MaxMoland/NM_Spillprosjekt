@@ -17,7 +17,8 @@ public class PlayerBehaviour : MonoBehaviour
     private State _state = State.Idle;
     private State _lastState = State.Idle;
     private bool _isEnteringState = false;
-
+    public SpriteRenderer _Sprite;
+    public Sprite[] _Sprites;
     //component refs
     private NavMeshAgent _NMAgent;
     private AudioSource _Speaker;
@@ -70,6 +71,51 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (_state == State.Idle)
         {
+            Debug.Log("x :" + _heading.x);
+            Debug.Log("z :" + _heading.z);
+            Debug.Log("last :" + _lastHeading);           
+            if (_heading.z < 0)//down
+            { 
+                _Sprite.sprite = _Sprites[7];//8
+            }
+            else if (_heading.z > 0) //up
+            {
+                _Sprite.sprite = _Sprites[1]; //2
+            }
+            else if (_heading.x < 0) //left
+            {
+                _Sprite.sprite = _Sprites[4]; //5
+                _Sprite.flipX = true;
+            }
+            else if (_heading.x > 0) //right
+            {             
+                _Sprite.sprite = _Sprites[4]; //5  
+                _Sprite.flipX = false;
+            }
+            else
+            {
+                if (_lastHeading.z < 0)//down
+                {
+                    _Sprite.sprite = _Sprites[6];
+                }
+                else if (_lastHeading.z > 0) //up
+                {
+                    _Sprite.sprite = _Sprites[0];
+                }
+                else if (_lastHeading.x < 0) //left
+                {
+                    _Sprite.sprite = _Sprites[3];
+                    _Sprite.flipX = true;
+                }
+                else if (_lastHeading.x > 0) //right
+                {
+                    Debug.Log("here");
+                    _Sprite.sprite = _Sprites[3];
+                    _Sprite.flipX = false;
+                }
+              
+            }
+
             _NMAgent.enabled = true;
 
             Navigate();
@@ -106,6 +152,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (_state == State.EnterSymetry)
         {
+            _Sprite.sprite = _Sprites[14];//15
+
             //State variables
             _NMAgent.enabled = false;
             if (_Speaker.clip != _phaseloop)
@@ -129,7 +177,8 @@ public class PlayerBehaviour : MonoBehaviour
                 _state = State.Idle;
                 //cleans up on exit
                 _Speaker.clip = null;
-                _PhaseLinePoint = Vector3.zero; 
+                _PhaseLinePoint = Vector3.zero;
+                _Sprite.sprite = _Sprites[6];
             }
             //Exit state -> SymetryPhasing
             if (Vector3.Distance(transform.position,_PhaseLinePoint) < 0.2f)
@@ -145,6 +194,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (_isEnteringState)
             {
+                _Sprite.sprite = _Sprites[14];//15
                 Debug.Log("entered SymetryPhasing!");
                 //find the phase line currently attached to
                 _PhaseLineObject = ClosestSymetryLine();
@@ -158,6 +208,7 @@ public class PlayerBehaviour : MonoBehaviour
                 _state = State.Idle;
                 //cleans up on exit
                 _Speaker.clip = null;
+                _Sprite.sprite = _Sprites[6];
             }
         }
         if (_state == State.Pushing)
@@ -170,6 +221,24 @@ public class PlayerBehaviour : MonoBehaviour
                 float speed = _NMAgent.speed / _pushableObject.GetComponent<Pushable>()._mass;
                 transform.position = Vector3.MoveTowards(transform.position, transform.position + _heading, speed * Time.deltaTime);
                 _pushableObject.transform.position = transform.position - objectOffset;
+                if (_heading.z < 0) { //down
+                   _Sprite.sprite = _Sprites[13];
+                }
+                else if(_heading.z > 0) //up
+                {
+                    _Sprite.sprite = _Sprites[9]; //10
+                }
+                else if (_heading.x < 0) //left
+                {
+                    _Sprite.sprite = _Sprites[11]; //12
+                    _Sprite.flipX = true;
+                }
+                else if (_heading.x > 0) //right
+                {
+                    _Sprite.sprite = _Sprites[12]; //11   
+                    _Sprite.flipX = false;
+                }
+
             } else _state = State.Idle;
             if (_heading != _lastHeading)
             {
