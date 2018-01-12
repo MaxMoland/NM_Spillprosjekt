@@ -6,7 +6,6 @@ using UnityEngine;
 public class SymetryZoneLogic : MonoBehaviour {
 
     public SimpleTrigger[] _requiredActiveTriggers;
-    private float _tempcheck;
     public GameObject[] _ObjectsToActivate;
     public GameObject[] _ObjectsToDisable;
 
@@ -17,13 +16,13 @@ public class SymetryZoneLogic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        _tempcheck = 0;
         bool allTrue = true;
         foreach (var item in _requiredActiveTriggers)
         {
             if (!item._triggered)
             {
                 allTrue = false;
+                Debug.Log("There is a false trigger in the scene!");
             }
         }
         if (allTrue)
@@ -31,8 +30,6 @@ public class SymetryZoneLogic : MonoBehaviour {
             SwitchOn();
         }
         else SwitchOff();
-        Debug.Log("_tempcheck = " + _tempcheck);
-        Debug.Log("_requiredActiveTriggers.Length = " + _requiredActiveTriggers.Length);
     }
 
     public void SwitchOn()

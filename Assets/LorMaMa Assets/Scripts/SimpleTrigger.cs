@@ -2,75 +2,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// The only job of the drigger class is to tell the wold it has been triggered
+/// </summary>
+[RequireComponent(typeof(AudioSource))]
 public class SimpleTrigger : MonoBehaviour {
 
-    public GameObject[] _ObjectsToActivate;
-    public GameObject[] _ObjectsToDisable;
-
-    private PlayerBehaviour _playerBehaviour;
-
-    //public GameObject[] _AnimationsToTurnOn;
-    //public GameObject[] _AnimationsToTurnOff;
-
+    protected PlayerBehaviour _playerBehaviour;
     public GameObject _DesiredObject;
+    public AudioClip _audioClip;
 
     public bool _triggered = false;
+    public float _SnapRange = 0.8f;
 
-    private void Start()
+    protected virtual void Start()
     {
         _playerBehaviour = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehaviour>();
     }
 
-
-    private void Update()
+    protected virtual void Update()
     {
-        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) < 0.8f && _playerBehaviour.GetState() != PlayerBehaviour.State.Pushing)
+        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) < _SnapRange && _playerBehaviour.GetState() != PlayerBehaviour.State.Pushing && !_triggered)
         {
-            Debug.Log("Trigger entered!");
+
+            GetComponent<AudioSource>().PlayOneShot(_audioClip);
             _DesiredObject.transform.position = transform.position;
-            //_DesiredObject.GetComponent<Pushable>().enabled = true;
-            SwitchOn(true);
-            //DoAnimateOn();
             _triggered = true;
         }
-        else
+        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) > _SnapRange)
         {
-            Debug.Log("Trigger left!");
-            SwitchOn(false);
             _triggered = false;
         }
     }
-
-    //private void DoAnimateOn()
-    //{
-    //    foreach (var item in _AnimationsToTurnOn)
-    //    {
-    //        item.GetComponent<Animator>().SetTrigger("Open");
-    //    }
-    //}
-    //private void DoAnimateOff()
-    //{
-    //    foreach (var item in _AnimationsToTurnOn)
-    //    {
-    //        item.GetComponent<Animator>().SetTrigger("Close");
-    //    }
-    //}
-
-    public void SwitchOn(bool isTurnedOn)
-    {
-        foreach (var item in _ObjectsToActivate)
-        {
-            item.SetActive(isTurnedOn);         
-        }
-        foreach (var item in _ObjectsToDisable)
-        {
-            item.SetActive(!isTurnedOn);
-        }
-
-    }
-
-
-
-
 }

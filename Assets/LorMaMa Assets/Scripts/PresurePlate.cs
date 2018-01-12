@@ -2,56 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PresurePlate : SimpleTrigger {
 
-   // public GameObject[] _ObjectsToActivate;
-   // public GameObject[] _ObjectsToDisable;
 
-    public GameObject[] _AnimationsToTurnOn;
-    public GameObject[] _AnimationsToTurnOff;
-
-    public GameObject _DesiredObject;
-    private bool active = false;
     public Color colorActive;
     public Color colorDeActive;
-    private Material[] mat; 
+    private Material[] mat;
+    
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         mat = GetComponent<Renderer>().materials;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) < 0.8f)
+        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) < _SnapRange && base._playerBehaviour.GetState() != PlayerBehaviour.State.Pushing && !base._triggered)
         {
-            Triggered();
-        }
-        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) > 1.2f)
-        {
-            DeTriggered();
-        }
-
-
-    }
-
-
-    public void Triggered()
-    {
-        if (!active){
-            GetComponent<AudioSource>().Play();
-            active = true;
+            if (!_triggered)
+            {
+                GetComponent<AudioSource>().PlayOneShot(_audioClip);
+            }
+            _DesiredObject.transform.position = transform.position + (Vector3.up * 0.5f);
             GetComponent<Renderer>().material.color = colorActive;
-            
+            _triggered = true;
         }
-    }
-    public void DeTriggered()
-    {
-        if (active)
+        if (Vector3.Distance(transform.position, _DesiredObject.transform.position) > _SnapRange)
         {
-            GetComponent<AudioSource>().Stop();
-            active = false;
+            _triggered = false;
             GetComponent<Renderer>().material.color = colorDeActive;
         }
+
+
     }
 }
