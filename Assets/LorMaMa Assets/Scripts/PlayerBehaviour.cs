@@ -167,7 +167,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (_state == State.EnterSymetry)
         {
-            _Sprite.sprite = _Sprites[14];//15
+
 
             //State variables
             _NMAgent.enabled = false;
@@ -182,6 +182,10 @@ public class PlayerBehaviour : MonoBehaviour
             {_PhaseLinePoint = ClosestPhaseLinePoint(); }
             if (_PhaseLinePoint != Vector3.zero)
             {
+                if (count <= 10)
+                    _Sprite.sprite = _Sprites[15];
+                else
+                    _Sprite.sprite = _Sprites[14];//15
                 transform.position = Vector3.MoveTowards(transform.position, _PhaseLinePoint, 1f * Time.deltaTime);
                 //Debug.Log("Moves toward a point!:");
                 Debug.DrawLine(transform.position, _PhaseLinePoint, Color.red);
@@ -207,15 +211,19 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (_state == State.SymetryPhasing)
         {
+            if (count <= 10)
+                _Sprite.sprite = _Sprites[15];
+            else
+                _Sprite.sprite = _Sprites[14];//15
             if (_isEnteringState)
             {
-                _Sprite.sprite = _Sprites[14];//15
+
                 Debug.Log("entered SymetryPhasing!");
                 //find the phase line currently attached to
                 _PhaseLineObject = ClosestSymetryLine();
                 _IsMovingToB = PhasingInterpolationPos(_PhaseLineObject) < 0.5;
 
-            }
+            }       
             SymetryNavigate(_PhaseLineObject);
             //Exit state -> Idle
             if (Input.GetButtonUp("Jump")) //todo: exit logic death or not allowed?           

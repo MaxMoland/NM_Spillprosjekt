@@ -6,16 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Simple Scene Fade Load System/Demo (You don't have to import this
-      folder)/Scenes/Level1.unity
-    guid: a3f87ead8e380db49b0b4f50cfb95290
+    path: Assets/LorMaMa Assets/GameScenes/MainMenu.unity
+    guid: 5b65073e2f860c84d87d9c052327261e
   - enabled: 1
-    path: Assets/Simple Scene Fade Load System/Demo (You don't have to import this
-      folder)/Scenes/Level2.unity
-    guid: 21cd08c704f4cee49a7dfeb681cdc1b1
+    path: Assets/LorMaMa Assets/GameScenes/Level1.unity
+    guid: 6725bf797c47aed4caca2b4a7ecf7d67
   - enabled: 1
-    path: Assets/LorMaMa Assets/Test Scenes/Playable Test.unity
-    guid: a45b89bf3d2c0dc4c9ece1ac4b892f8b
-  - enabled: 1
-    path: Assets/LorMaMa Assets/Test Scenes/Movement Movement Test.unity
-    guid: f6a3f40ec7648c34c92c0bd35fb59f61
+    path: Assets/LorMaMa Assets/GameScenes/Level2.unity
+    guid: d3044751e78607f49b30d3c16c2dfca1

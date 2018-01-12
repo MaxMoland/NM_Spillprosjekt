@@ -21,6 +21,6 @@ public class Scenetransfer : MonoBehaviour {
 
     public void Triggered()
     {
-        Initiate.Fade(scene, loadToColor, 0.5f);
+        Initiate.Fade(scene, loadToColor, 2.0f);
     }
 }
