@@ -27,7 +27,7 @@ public class BridgeLogic : MonoBehaviour {
         }
         if (!_plate._triggered && isOpen)
         {
-            _anim.SetTrigger("Open");
+            _anim.SetTrigger("Close");
             isOpen = !isOpen;
         }
 
